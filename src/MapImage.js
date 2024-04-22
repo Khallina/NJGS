@@ -1,9 +1,10 @@
 import React from 'react';
+import mapImage from './map.jpg'; // Import the map.jpg file
 
-const MapImage = ({ imageUrl }) => {
+const MapImage = () => {
   return (
     <div style={{ maxWidth: '100%', maxHeight: '100vh', overflow: 'auto' }}>
-      <img src={imageUrl} alt="Map" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto' }} />
+      <img src={mapImage} alt="Map" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto' }} />
     </div>
   );
 }
