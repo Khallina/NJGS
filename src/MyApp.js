@@ -125,7 +125,7 @@ function MyApp() {
           />
           <Route path="/form" element={<Form handleSubmit={updateList} />} />
           <Route path="/login" element={<LoginForm setToken={setToken} />} />
-          <Route path="/map" element={<MapImage />} /> {/* Use MapImage component here */}
+          <Route path="/map" element={<MapImage />} />
           <Route path="/signup" element={<SignupForm setToken={setToken} />} />
         </Routes>
       </BrowserRouter>
