@@ -6,6 +6,7 @@ import Form from "./Form";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { useCookies } from "react-cookie";
+import MapImage from "./MapImage";
 const BACKEND_URL = "http://localhost:8000";
 
 function MyApp() {
@@ -109,6 +110,9 @@ function MyApp() {
             <li>
               <Link to="/signup">Sign Up</Link>
             </li>
+            <li>
+              <Link to="/map">Maps</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
@@ -124,6 +128,7 @@ function MyApp() {
           />
           <Route path="/form" element={<Form handleSubmit={updateList} />} />
           <Route path="/login" element={<LoginForm setToken={setToken} />} />
+          <Route path="/map" element={<MapImage imageUrl="https://content-calpoly-edu.s3.amazonaws.com/eop/1/images/Map%20EOP.png" />} />
           <Route path="/signup" element={<SignupForm setToken={setToken} />} />
         </Routes>
       </BrowserRouter>
