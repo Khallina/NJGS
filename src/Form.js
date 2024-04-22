@@ -3,18 +3,21 @@ import React, { useState } from 'react'
 function Form (props) {
   const [person, setPerson] = useState({
     name: '',
-    job: ''
+    Classes: '',
+    RoomNumbers: ''
   })
 
   function handleChange (event) {
     const { name, value } = event.target
-    if (name === 'job') setPerson({ name: person.name, job: value })
-    else setPerson({ name: value, job: person.job })
+    if (name === 'Classes') setPerson({ name: person.name, Classes: value, RoomNumbers: person.testThing })
+
+    else if (name === 'name') setPerson({ name: value, Classes: person.Classes })
+    else setPerson({ name: person.name, Classes: person.Classes, RoomNumbers: value })
   }
 
   function submitForm () {
     props.handleSubmit(person)
-    setPerson({ name: '', job: '' })
+    setPerson({ name: '', Classes: '', RoomNumbers: '' })
   }
 
   return (
@@ -27,12 +30,20 @@ function Form (props) {
         value={person.name}
         onChange={handleChange}
       />
-      <label htmlFor='job'>Job</label>
+      <label htmlFor='Classes'>Classes</label>
       <input
         type='text'
-        name='job'
-        id='job'
-        value={person.job}
+        name='Classes'
+        id='Classes'
+        value={person.Classes}
+        onChange={handleChange}
+      />
+      <label htmlFor='Room Numbers'>Room Numbers</label>
+      <input
+        type='text'
+        name='Room Numbers'
+        id='Room Numbers'
+        value={person.RoomNumbers}
         onChange={handleChange}
       />
       <input type='button' value='Submit' onClick={submitForm} />

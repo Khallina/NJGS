@@ -60,7 +60,7 @@ function MyApp() {
 
   async function makeDeleteCall(id) {
     try {
-      const response = await axios.delete(`${BACKEND_URL}/users${id}`);
+      const response = await axios.delete(`${BACKEND_URL}/users/${id}`);
       return response;
     } catch (error) {
       console.log(error);
