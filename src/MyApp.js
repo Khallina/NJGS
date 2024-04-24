@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Table from "./Table";
@@ -6,7 +5,10 @@ import Form from "./Form";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { useCookies } from "react-cookie";
-import MapImage from "./MapImage";
+import MapImage from './MapImage'; // Import the MapImage component
+
+import axios from "axios";
+
 const BACKEND_URL = "http://localhost:8000";
 
 function MyApp() {
@@ -90,11 +92,6 @@ function MyApp() {
   
 
   return (
-    // This is what we had before:
-    // <div className='container'>
-    //   <Table characterData={characters} removeCharacter={removeOneCharacter} />
-    //   <Form handleSubmit={updateList} />
-    // </div>
     <div className="container">
       <BrowserRouter>
         <nav>
@@ -129,7 +126,7 @@ function MyApp() {
           />
           <Route path="/form" element={<Form handleSubmit={updateList} />} />
           <Route path="/login" element={<LoginForm setToken={setToken} />} />
-          <Route path="/map" element={<MapImage imageUrl="https://content-calpoly-edu.s3.amazonaws.com/eop/1/images/Map%20EOP.png" />} />
+          <Route path="/map" element={<MapImage />} />
           <Route path="/signup" element={<SignupForm setToken={setToken} />} />
         </Routes>
       </BrowserRouter>
