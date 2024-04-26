@@ -1,4 +1,4 @@
-![Node.js CI](https://github.com/NJGS/React/workflows/main%20CI/badge.svg)
+![Frontend Node.js CI](https://github.com/NJGS/React/workflows/node.js.yml/badge.svg)
 
 # Getting Started with Create React App
 
