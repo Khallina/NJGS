@@ -6,13 +6,13 @@ name: Frontend React CI
 
 on:
   push:
-    branches: [main, with-subfolder, ci]
+    branches: [main, access-control]
   pull_request:
-    branches: [main, with-subfolder, ci]
+    branches: [main, access-control]
 
 defaults:
   run:
-    working-directory: frontend
+    working-directory: main
 
 jobs:
   build:
@@ -30,10 +30,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: "frontend/package-lock.json"
+          cache-dependency-path: "package-lock.json"
       - run: npm ci
-        working-directory: frontend
+        working-directory: main
       - run: npm run build --if-present
-        working-directory: frontend
+        working-directory: main
       - run: npm test
-        working-directory: frontend
+        working-directory: main
