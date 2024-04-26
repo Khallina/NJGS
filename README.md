@@ -1,3 +1,5 @@
+![Node.js CI](https://github.com/NJGS/React/workflows/main%20CI/badge.svg)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
