@@ -15,7 +15,21 @@ const MapImage = () => {
       zoom: 14 // Adjust zoom level as needed
     });
 
-    return () => map.remove();
+    // Add a marker at the clicked location
+    function addMarker(e) {
+      const marker = new mapboxgl.Marker()
+        .setLngLat(e.lngLat)
+        .addTo(map);
+    }
+
+    // Event listener for the 'click' event
+    map.on('click', addMarker);
+
+    // Cleanup function to remove event listener and map instance
+    return () => {
+      map.off('click', addMarker);
+      map.remove();
+    };
   }, []);
 
   return <div ref={mapContainer} style={{ width: '100%', height: '100vh' }} />;
