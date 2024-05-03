@@ -11,8 +11,8 @@ const MapImage = () => {
     const map = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/dark-v10',
-      center: [0, 0],
-      zoom: 1
+      center: [-120.656, 35.305], // Centered on Cal Poly San Luis Obispo
+      zoom: 14 // Adjust zoom level as needed
     });
 
     return () => map.remove();
