@@ -11,50 +11,48 @@ const MapImage = () => {
 
     const map = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/dark-v10',
-      center: [-120.656, 35.305], // Centered on Cal Poly San Luis Obispo
-      zoom: 14 // Adjust zoom level as needed
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-120.656, 35.305],
+      zoom: 14,
+      maxBounds: [ // Set the maximum bounds of the map
+        [-120.68, 35.29], // Southwest coordinates
+        [-120.63, 35.32]  // Northeast coordinates
+      ],
+      scrollZoom: true // Allow zooming with mouse scroll
     });
 
-    // Add a marker at the clicked location
     function addMarker(e) {
-      const markerId = Date.now().toString(); // Unique identifier for the marker
-      const coordinates = e.lngLat; // Get the coordinates of the marker
+      const markerId = Date.now().toString();
+      const coordinates = e.lngLat;
       
-      const marker = new mapboxgl.Marker() // Create a marker
+      const marker = new mapboxgl.Marker()
         .setLngLat(coordinates)
         .addTo(map);
     
-      // Create a popup displaying the coordinates
       const popup = new mapboxgl.Popup()
         .setLngLat(coordinates)
         .setHTML(`<p>Latitude: ${coordinates.lat.toFixed(6)}</p><p>Longitude: ${coordinates.lng.toFixed(6)}</p>`);
       
-      // Attach the popup to the marker
       marker.setPopup(popup);
     
-      markers.current[markerId] = marker; // Store the marker reference with its id
+      markers.current[markerId] = marker;
       
-      // Event listener for right-click to remove the marker
       marker.getElement().addEventListener('contextmenu', (event) => {
-        event.preventDefault(); // Preventing the default context menu
-        removeMarker(markerId); // Call removeMarker function with the marker id
+        event.preventDefault();
+        removeMarker(markerId);
       });
     }
 
-    // Function to remove a marker by its id
     function removeMarker(markerId) {
       const markerToRemove = markers.current[markerId];
       if (markerToRemove) {
-        markerToRemove.remove(); // Remove the marker from the map
-        delete markers.current[markerId]; // Remove the marker reference from the markers object
+        markerToRemove.remove();
+        delete markers.current[markerId];
       }
     }
 
-    // Event listener for the 'click' event to add markers
     map.on('click', addMarker);
 
-    // Cleanup function to remove event listener and map instance
     return () => {
       map.off('click', addMarker);
       map.remove();
