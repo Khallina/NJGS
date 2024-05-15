@@ -4,8 +4,10 @@ import Table from "./Table";
 import Form from "./Form";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+import BuildingsList from "./BuildingsList";
 import { useCookies } from "react-cookie";
 import MapImage from './MapImage'; // Import the MapImage component
+import BuildingDetails from './BuildingDetails';
 
 import axios from "axios";
 
@@ -103,6 +105,9 @@ function MyApp() {
               <Link to="/form">Insert one</Link>
             </li>
             <li>
+              <Link to="/buildings">Buildings</Link>
+            </li>
+            <li>
               <Link to="/map">Maps</Link>
             </li>
           </ul>
@@ -120,8 +125,11 @@ function MyApp() {
           />
           <Route path="/form" element={<Form handleSubmit={updateList} />} />
           <Route path="/login" element={<LoginForm setToken={setToken} />} />
+          <Route path="/buildings" element={<BuildingsList />} />
+          <Route path="/buildings/:buildingId" element={<BuildingDetails />} />
           <Route path="/map" element={<MapImage />} />
-          <Route path="/signup" element={<SignupForm setToken={setToken} />} />
+          <Route path="/signup" element={<SignupForm setToken={setToken} />}
+           />
         </Routes>
       </BrowserRouter>
     </div>
