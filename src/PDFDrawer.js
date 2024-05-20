@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 
 function PDFDrawer({ pdf, pageNumber, onDrawingChange }) {
   const canvasRef = useRef(null);
-  const [drawing, setDrawing] = useState(null);
+  const [drawing, setDrawing] = useState([]);
   const [isDrawing, setIsDrawing] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
     const renderPage = async () => {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
       const page = await pdf.getPage(pageNumber);
       const viewport = page.getViewport({ scale: 1 });
 
@@ -21,14 +20,16 @@ function PDFDrawer({ pdf, pageNumber, onDrawingChange }) {
         viewport: viewport,
       };
 
-      page.render(renderContext);
+      await page.render(renderContext);
     };
 
     renderPage();
   }, [pdf, pageNumber]);
 
-  const startDrawing = () => {
+  const startDrawing = (event) => {
+    const { offsetX, offsetY } = event.nativeEvent;
     setIsDrawing(true);
+    setDrawing([{ x: offsetX, y: offsetY }]);
   };
 
   const endDrawing = () => {
@@ -41,30 +42,46 @@ function PDFDrawer({ pdf, pageNumber, onDrawingChange }) {
 
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
+    const { offsetX, offsetY } = event.nativeEvent;
 
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    const newPoint = { x: offsetX, y: offsetY };
+    setDrawing((prevDrawing) => [...prevDrawing, newPoint]);
 
-    if (!drawing) {
-      setDrawing({ x, y, lines: [] });
-    } else {
-      const newLines = [...drawing.lines, { x, y }];
-      setDrawing({ ...drawing, lines: newLines });
-      context.beginPath();
-      context.moveTo(drawing.x, drawing.y);
-      context.lineTo(x, y);
-      context.stroke();
-    }
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
+    context.strokeStyle = 'black';
+    context.lineWidth = 2;
+
+    context.beginPath();
+    context.moveTo(drawing[drawing.length - 1].x, drawing[drawing.length - 1].y);
+    context.lineTo(newPoint.x, newPoint.y);
+    context.stroke();
+    context.closePath();
   };
 
   const clearDrawing = () => {
-    setDrawing(null);
-    onDrawingChange(null);
-
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
+
+    // Clear the drawing
     context.clearRect(0, 0, canvas.width, canvas.height);
+    setDrawing([]);
+    onDrawingChange(null);
+
+    // Redraw the PDF
+    const renderPage = async () => {
+      const page = await pdf.getPage(pageNumber);
+      const viewport = page.getViewport({ scale: 1 });
+
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport,
+      };
+
+      await page.render(renderContext);
+    };
+
+    renderPage();
   };
 
   return (
