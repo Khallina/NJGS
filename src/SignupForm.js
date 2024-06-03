@@ -25,7 +25,7 @@ function SignupForm(props) {
         alert("Successfully signed up");
         navigate("/users-table");
       } else {
-        setMsg("Invalid login credentials!");
+        setMsg("Invalid signup credentials! Passwords must have at least 3 characters.");
       }
     });
   }
@@ -38,6 +38,9 @@ function SignupForm(props) {
       return response;
     } catch (error) {
       console.log(error);
+      if (error.response && error.response.status === 400) {
+        return error.response;
+      }
       return false;
     }
   }
@@ -45,6 +48,8 @@ function SignupForm(props) {
   return (
     <>
       <h2>Register</h2>
+
+      {message && <div style={{ color: "red" }}>{message}</div>}
 
       <form onSubmit={submitForm}>
         Username
@@ -62,6 +67,7 @@ function SignupForm(props) {
           onChange={(e) => setPwd(e.target.value)}
           required
         />
+        <br />
         Verify Password
         <input
           type="password"
@@ -69,6 +75,7 @@ function SignupForm(props) {
           onChange={(e) => setPwdValidate(e.target.value)}
           required
         />
+        <br />
         <button type="submit">Signup</button>
       </form>
     </>
