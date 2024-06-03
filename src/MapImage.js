@@ -207,15 +207,9 @@ const MapImage = () => {
     setSetEndMode(false);
   };
 
-  const handleSetEnd = () => {
-    setSetStartMode(false);
-    setSetEndMode(true);
-  };
-
   return (
     <div>
       <button onClick={handleSetStart}>Set Start</button>
-      <button onClick={handleSetEnd}>Set End</button>
       <div ref={mapContainer} style={{ width: '100%', height: '80vh' }} />
       <div id="instructions"></div>
     </div>
