@@ -118,7 +118,7 @@ function BuildingDetails({ userId }) {
           </div>
         </>
       )}
-      <button onClick={() => navigate('/buildings')} style={{ marginTop: '1rem' }}>
+      <button onClick={() => navigate('/buildings')} style={{ marginTop: '30rem' }}>
         Back to Building List
       </button>
     </div>

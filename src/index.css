@@ -151,6 +151,34 @@ hr {
   overflow: visible;
   /* 2 */
 }
+/*
+#pdf-container {
+  position: relative;
+  display: inline-block;
+}
+
+#pdf-canvas,
+#drawing-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#drawing-menu {
+  display: inline-block;
+  margin-left: 20px;
+  vertical-align: top;
+}
+.selected {
+  filter: brightness(60%);
+}
+*/
+
+
+
+
 
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
